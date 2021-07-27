@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wassup.springboottest.mapper.UserMapper">
+
+    <insert id="saveUser" parameterType="com.wassup.springboottest.model.dao.User" useGeneratedKeys="true"
+            keyProperty="userNum">
+        insert into pearl_user(nick_name,
+                               password,
+                               email,
+                               valid_start_date,
+                               valid_end_date,
+                               audit_id,
+                               audit_at)
+        values (#{nickName},
+                #{password},
+                #{email},
+                DATE_FORMAT(now(), '%Y%m%d'),
+                '99991231',
+                'admin',
+                sysdate());
+    </insert>
+
+    <update id="updateUser" parameterType="com.wassup.springboottest.model.dao.User">
+        update pearl_user
+        set nick_name        = #{nickName},
+            password         = #{password},
+            valid_start_date = DATE_FORMAT(now(), '%Y%m%d')
+        where 1 = 1
+          and email = #{email}
+    </update>
+
+    <select id="findUserByName" parameterType="java.lang.String" resultType="com.wassup.springboottest.model.dao.User">
+        select pu.user_num,
+               pu.nick_name,
+               pu.email,
+               pu.password
+        from pearl_user pu
+        where 1 = 1
+          and pu.email = #{email}
+    </select>
+</mapper>
