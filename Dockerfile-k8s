@@ -9,5 +9,5 @@ RUN mkdir -p /opt/$app_name/
 RUN mkdir -p /var/log/$app_name/
 
 
-COPY ./output/thunder*.jar /opt/$app_name/$app_name.jar
+COPY ./output/*.jar /opt/$app_name/$app_name.jar
 RUN ls /opt/$app_name/
